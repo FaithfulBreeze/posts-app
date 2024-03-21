@@ -16,6 +16,5 @@ database.connect() //Conecting to the database
     logEvents.serverStatus(err) //Log server status
 })
 
-
 app.use('/', require('./routes/root')) //Routes for pages
 app.use('/api', require('./routes/api/api')) //Routes for api
