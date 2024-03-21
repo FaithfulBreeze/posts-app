@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const path = require('path')
 
+//---Routes for pages---
 router.get('/', (req, res)=>{
     res.sendFile(path.join(__dirname, '..', 'views', 'index.html'))
 })
@@ -13,7 +14,5 @@ router.get('/login(.html)?', (req, res)=>{
 router.get('/signup(.html)?', (req, res)=>{
     res.sendFile(path.join(__dirname, '..', 'views', 'signup.html'))
 })
-
-
 
 module.exports = router

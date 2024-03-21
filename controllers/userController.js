@@ -3,13 +3,13 @@ const database = require('../models/connection')
 const {v4} = require('uuid')
 
 const logUser = (req, res) =>{
-    database.query(`SELECT * FROM users WHERE username = '${req.body.username}'`)
+    database.query(`SELECT * FROM users WHERE username = '${req.body.username}'`) //Checking username
     .then(result=>{
-        if(result.rows.length === 0){
+        if(result.rows.length === 0){ //Username not found
             res.send('User not found.')
-        }else if(result.rows[0].password !== req.body.password){
+        }else if(result.rows[0].password !== req.body.password){ //User found, but wrong password
             res.send('Wrong password.')
-        }else{
+        }else{ //Username found and correct password
             logEvents(`User logged id: ${result.rows[0].id}.`, 'userEvents.txt')
             res.send(result.rows[0])
         }
@@ -17,20 +17,19 @@ const logUser = (req, res) =>{
 }
 
 const createUser = (req, res) =>{
-    database.query(`SELECT * FROM users WHERE username = '${req.body.username}'`)
+    database.query(`SELECT * FROM users WHERE username = '${req.body.username}'`) //Checking username
     .then(result=>{
-        if(result.rows.length === 0){
+        if(result.rows.length === 0){ //User does not exist, creating...
             let id = v4()
             database.query(`INSERT INTO users(id, first_name, last_name, username, password) VALUES ('${id}', '${req.body.first_name}', '${req.body.last_name}', '${req.body.username}', '${req.body.password}' )`)
-            .then((result)=>{
+            .then(()=>{ //Success on creating user
                 logEvents(`User created id: ${id}.`, 'userEvents.txt')
                 res.send('User created!')
             })
-            .catch(()=>{
+            .catch(()=>{ //Fail on creating user
                 logEvents(`User could not be created.`, 'userEvents.txt')
             })
-
-        }else{
+        }else{ //Username already in use
             res.send('Username already taken!')
         }
     })
