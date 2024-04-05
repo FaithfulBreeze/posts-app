@@ -16,13 +16,13 @@ const logUser = (req, res) =>{
             res.status(400).send('Wrong password.')
         }else{ //Username found and correct password
             logEvents(`User logged id: ${user.id}.`, 'userEvents.txt')
-             const token = jwt.sign(
+             const token = jwt.sign( //generating jwt for user
               {payload:user.id},
               process.env.TOKEN_SECRET,
-              { expiresIn: '1h' }
+              { expiresIn: '12h' }
             )
-            database.query(`UPDATE users SET refresh_token = '${token}' WHERE id = '${user.id}'`)
-            res.cookie(
+            database.query(`UPDATE users SET refresh_token = '${token}' WHERE id = '${user.id}'`) //saves the token on db
+            res.cookie( //sets jwt as cookie on browser
               'jwt',
               token,
               {
@@ -30,9 +30,16 @@ const logUser = (req, res) =>{
                 maxAge: 1000 * 60 * 60
               }
             )
-            res.status(301).redirect(`../user/${user.username}`)
+            res.status(301).redirect(`../user/${user.username}`) //Redirecting for user page
         }
     })
 }
 
-module.exports = { logUser }
+const logoutUser = (req, res)=>{
+    database.query(`UPDATE users SET refresh_token = '' WHERE id = '${req.user.payload}'`) //Deletes token
+    .then(()=>{
+        res.clearCookie('jwt') //Clears cookie
+    })
+}
+
+module.exports = { logUser, logoutUser }

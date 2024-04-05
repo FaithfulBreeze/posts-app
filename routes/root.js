@@ -20,4 +20,12 @@ router.get('/user/:username', jwtVerify, (req, res)=>{
   res.sendFile(path.join(__dirname, '../views/user-page.html'))
 })
 
+router.get('/create-post', jwtVerify, (req, res)=>{
+  res.sendFile(path.join(__dirname, '..', 'views', 'create-post.html'))
+})
+
+router.get('/feed', jwtVerify, (req, res)=>{
+  res.sendFile(path.join(__dirname, '..', 'views', 'feed.html'))
+})
+
 module.exports = router

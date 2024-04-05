@@ -26,19 +26,12 @@ const createUser = (req, res) =>{
     })
 }
 
-const getUserData = (req, res)=>{
+const getUserData = (req, res)=>{ //user data for frontend
     database.query(`SELECT first_name, last_name, username, id FROM users WHERE id = '${req.user.payload}'`)
     .then(result=>{
       res.json(result.rows[0])
     })
 }
 
-const logoutUser = (req, res)=>{
-    console.log(req.user.payload)
-    database.query(`UPDATE users SET refresh_token = '' WHERE id = '${req.user.payload}'`)
-    .then(()=>{
-        res.clearCookie('jwt')
-    })
-}
 
-module.exports = { createUser, getUserData, logoutUser }
+module.exports = { createUser, getUserData }
