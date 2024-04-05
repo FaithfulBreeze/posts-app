@@ -9,14 +9,25 @@
   <header>
     <h1>User page!</h1>
     <h2 id="username_field"></h2>
+    <button id="logout_button">Logout</button>
   </header>
   <script>
-    const username = window.location.href.split('user/')[1]
-    fetch(`../api/username/${username}`).then((content)=>{
+    fetch(`../api/userData/`).then((content)=>{
       return content.json()
     }).then((userData)=>{
       localStorage.setItem('userData', JSON.stringify(userData))
       document.querySelector('#username_field').innerText = userData.username
+    })
+
+    const logoutButton = document.querySelector('#logout_button')
+    logoutButton.addEventListener('click', ()=>{
+      console.log('loggin out...')
+      fetch('../api/logout', {
+        method: 'PUT',
+        body: localStorage.getItem('userData')
+      })
+      localStorage.removeItem('userData')
+      window.location.href = '../'
     })
   </script>
 </body>

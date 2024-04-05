@@ -16,7 +16,7 @@ router.get('/signup(.html)?', (req, res)=>{
     res.sendFile(path.join(__dirname, '..', 'views', 'signup.html'))
 })
 
-router.get('/user/:username', jwtVerify.refreshTokenVerify, (req, res)=>{
+router.get('/user/:username', jwtVerify, (req, res)=>{
   res.sendFile(path.join(__dirname, '../views/user-page.html'))
 })
 

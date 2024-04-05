@@ -11,9 +11,9 @@ const logUser = (req, res) =>{
     .then(result=>{
         const user = result.rows[0]
         if(!user){ //Username not found
-            res.send('User not found.')
+            res.status(404).send('User not found.')
         }else if(bcrypt.compareSync(requestUser.password, user.password) == false){ //User found, but wrong password
-            res.send('Wrong password.')
+            res.status(400).send('Wrong password.')
         }else{ //Username found and correct password
             logEvents(`User logged id: ${user.id}.`, 'userEvents.txt')
              const token = jwt.sign(
@@ -21,6 +21,7 @@ const logUser = (req, res) =>{
               process.env.TOKEN_SECRET,
               { expiresIn: '1h' }
             )
+            database.query(`UPDATE users SET refresh_token = '${token}' WHERE id = '${user.id}'`)
             res.cookie(
               'jwt',
               token,

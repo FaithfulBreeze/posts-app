@@ -13,7 +13,7 @@ const createUser = (req, res) =>{
             database.query(`INSERT INTO users(id, first_name, last_name, username, password) VALUES ('${id}', '${req.body.first_name}', '${req.body.last_name}', '${req.body.username}', '${hashedPassword}' )`)
             .then(()=>{ //Success on creating user
                 logEvents(`User created id: ${id}.`, 'userEvents.txt')
-                res.sendFile(path.join(__dirname, '..', 'views', 'login.html'))
+                res.status(301).redirect('/login')
             })
             .catch(()=>{ //Fail on creating user
                 logEvents(`User could not be created.`, 'userEvents.txt')
@@ -21,21 +21,24 @@ const createUser = (req, res) =>{
             })
         }else{ //Username already in use
             logEvents(`User could not be created.`, 'userEvents.txt')
-            res.send('Username already taken!')
+            res.status(400).send('Username already taken!')
         }
     })
 }
 
 const getUserData = (req, res)=>{
-    const username = req.params.username
-    database.query(`SELECT first_name, last_name, username FROM users WHERE username = '${username}'`)
+    database.query(`SELECT first_name, last_name, username, id FROM users WHERE id = '${req.user.payload}'`)
     .then(result=>{
-        if(result.rows.length === 0){ //Username not found
-            res.send('User not found.')
-        }else{ //Username found
-            res.send(result.rows[0])
-        }
+      res.json(result.rows[0])
     })
 }
 
-module.exports = { createUser, getUserData }
+const logoutUser = (req, res)=>{
+    console.log(req.user.payload)
+    database.query(`UPDATE users SET refresh_token = '' WHERE id = '${req.user.payload}'`)
+    .then(()=>{
+        res.clearCookie('jwt')
+    })
+}
+
+module.exports = { createUser, getUserData, logoutUser }

@@ -8,6 +8,8 @@ const jwtVerify = require('../../middlewares/jwtVerify')
 router.post('/login', authController.logUser)
 router.post('/signup', userController.createUser)
 
-router.get('/username/:username',jwtVerify.refreshTokenVerify, userController.getUserData)
+router.get('/userData/',jwtVerify, userController.getUserData)
+
+router.put('/logout', jwtVerify, userController.logoutUser)
 
 module.exports = router
