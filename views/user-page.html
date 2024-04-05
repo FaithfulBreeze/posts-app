@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts app!</title>
+</head>
+<body>
+  <header>
+    <h1>User page!</h1>
+    <h2 id="username_field"></h2>
+  </header>
+  <script>
+    const username = window.location.href.split('user/')[1]
+    fetch(`../api/username/${username}`).then((content)=>{
+      return content.json()
+    }).then((userData)=>{
+      localStorage.setItem('userData', JSON.stringify(userData))
+      document.querySelector('#username_field').innerText = userData.username
+    })
+  </script>
+</body>
+</html>

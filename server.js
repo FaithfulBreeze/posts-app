@@ -3,6 +3,10 @@ const logEvents = require('./middlewares/logEvents') //imports logEvents functio
 const express = require('express') //express
 const app = express() //express
 
+const cookieParser = require('cookie-parser')
+
+app.use(cookieParser())
+
 app.use(express.urlencoded({extended: false})) //For post requests from forms
 app.use(logEvents.logRequest) //Logging requests on logs folder
 
