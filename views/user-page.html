@@ -12,7 +12,8 @@
         background-color: #bbb;
         padding: 10px;
         margin-bottom: 5px;
-     none     .content{
+      }
+      .content{
         border: 2px solid black;
         background-color: #ddd;
         padding: 10px;
@@ -24,6 +25,7 @@
     <h1>User page!</h1>
     <h2 id="username_field"></h2>
     <button id="logout_button">Logout</button>
+    <button id="delete_user_button">Delete my user</button>
     <br>
     <p><a href="../create-post"">Create new post</a></p>
     <p><a href="../feed"">Posts feed</a></p>
@@ -41,7 +43,7 @@
     })
     .then((userData)=>{
       localStorage.setItem('userData', JSON.stringify(userData))
-      document.querySelector('#username_field').innerText = userData.username
+      document.querySelector('#username_field').innerText = `Logged as: ${userData.username}`
       return fetch('../api/userPosts')
     })
     .then((content)=>{
@@ -78,6 +80,14 @@
         body: localStorage.getItem('userData')
       })
       localStorage.removeItem('userData')
+      window.location.href = '../'
+    })
+
+    const deleteUserButton = document.querySelector('#delete_user_button')
+    deleteUserButton.addEventListener('click', ()=>{
+      fetch('../../api/deleteUser', {
+        method: 'DELETE',
+      })
       window.location.href = '../'
     })
   </script>

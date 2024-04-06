@@ -22,6 +22,7 @@ const logUser = (req, res) =>{
               { expiresIn: '12h' }
             )
             database.query(`UPDATE users SET refresh_token = '${token}' WHERE id = '${user.id}'`) //saves the token on db
+            logEvents(`Token generated for user: ${user.id}\nToken: ${token}\n`, 'tokensHistory.txt')
             res.cookie( //sets jwt as cookie on browser
               'jwt',
               token,
@@ -38,6 +39,8 @@ const logUser = (req, res) =>{
 const logoutUser = (req, res)=>{
     database.query(`UPDATE users SET refresh_token = '' WHERE id = '${req.user.payload}'`) //Deletes token
     .then(()=>{
+        logEvents(`Token deleted for user: ${req.user.payload}\nToken: ${req.cookies.jwt}\n`, 'tokensHistory.txt')
+        logEvents(`User logged off id: ${req.user.payload}.`, 'userEvents.txt')
         res.clearCookie('jwt') //Clears cookie
     })
 }

@@ -10,7 +10,9 @@ const createUser = (req, res) =>{
         if(result.rows.length === 0){ //User does not exist, creating...
             const id = v4()
             const hashedPassword = bcrypt.hashSync(req.body.password, 10) //Hashing the password before writing to DB
-            database.query(`INSERT INTO users(id, first_name, last_name, username, password) VALUES ('${id}', '${req.body.first_name}', '${req.body.last_name}', '${req.body.username}', '${hashedPassword}' )`)
+            database.query(`INSERT INTO users(id, first_name, last_name, username, password)
+            VALUES ('${id}', '${req.body.first_name}', '${req.body.last_name}',
+            '${req.body.username}', '${hashedPassword}' )`)
             .then(()=>{ //Success on creating user
                 logEvents(`User created id: ${id}.`, 'userEvents.txt')
                 res.status(301).redirect('/login')
@@ -27,11 +29,25 @@ const createUser = (req, res) =>{
 }
 
 const getUserData = (req, res)=>{ //user data for frontend
-    database.query(`SELECT first_name, last_name, username, id FROM users WHERE id = '${req.user.payload}'`)
-    .then(result=>{
-      res.json(result.rows[0])
-    })
+    if(req.params.id){
+      database.query(`SELECT username FROM users WHERE id = '${req.params.id}'`)
+      .then((result)=>{
+        return res.json(result.rows[0])
+      })
+    }else{
+      database.query(`SELECT first_name, last_name, username, id FROM users WHERE id = '${req.user.payload}'`)
+      .then(result=>{
+        res.json(result.rows[0])
+      })
+    }
 }
 
+const deleteUser = (req, res)=>{ //deletes user
+  database.query(`DELETE FROM posts WHERE owner = '${req.user.payload}'`)
+  .then(()=>{
+    database.query(`DELETE FROM users WHERE id = '${req.user.payload}'`)
+  })
+  res.clearCookie('jwt') //clears cookie
+}
 
-module.exports = { createUser, getUserData }
+module.exports = { createUser, getUserData, deleteUser }

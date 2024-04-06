@@ -2,9 +2,7 @@ const database = require('./models/connection') //Imports database client
 const logEvents = require('./middlewares/logEvents') //imports logEvents function
 const express = require('express') //express
 const app = express() //express
-
 const cookieParser = require('cookie-parser') //For cookies
-app.use(cookieParser())
 
 app.use(express.urlencoded({extended: false})) //For post requests from forms
 app.use(logEvents.logRequest) //Logging requests on logs folder
@@ -18,6 +16,8 @@ database.connect() //Conecting to the database
     logEvents.databaseConnect(err) //Log database status
     logEvents.serverStatus(err) //Log server status
 })
+
+app.use(cookieParser())
 
 app.use('/', require('./routes/root')) //Routes for pages
 app.use('/api', require('./routes/api/api')) //Routes for api
