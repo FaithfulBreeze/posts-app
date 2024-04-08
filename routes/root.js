@@ -28,7 +28,8 @@ router.get('/feed', jwtVerify, (req, res)=>{
   res.sendFile(path.join(__dirname, '..', 'views', 'feed.html'))
 })
 
-router.get('/author/:username', jwtVerify, (req, res)=>{
+router.get('/author/:id', jwtVerify, (req, res)=>{
+  if(req.params.id === req.user.payload) return res.status(301).redirect('/user/user-page')
   res.sendFile(path.join(__dirname, '../views/author-page.html'))
 })
 

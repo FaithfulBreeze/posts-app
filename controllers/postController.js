@@ -3,13 +3,13 @@ const database = require('../models/connection')
 const {v4} = require('uuid')
 
 const getUserPosts = (req, res)=>{ //get user posts
-  if(req.params.id){
+  if(req.params.id){ //another user
     database.query(`SELECT * FROM posts WHERE owner = '${req.params.id}' ORDER BY post_timestamp DESC`)
     .then((result)=>{
       if(result.rows.length === 0) return res.json({posts: false})
       return res.json({posts: result.rows})
     })
-  }else{
+  }else{ //current user
     database.query(`SELECT * FROM posts WHERE owner = '${req.user.payload}' ORDER BY post_timestamp DESC`)
     .then((result)=>{
       if(result.rows.length === 0) return res.json({posts: false})
@@ -20,7 +20,8 @@ const getUserPosts = (req, res)=>{ //get user posts
 
 const createPost = (req, res)=>{ //creates a new post
   const {post_name, post_content} = req.body
-  database.query(`INSERT INTO posts(id, post_name, post_content, owner) VALUES('${v4()}', '${post_name}', '${post_content}', '${req.user.payload}')`).then(()=>{
+  database.query(`INSERT INTO posts(id, post_name, post_content, owner)
+  VALUES('${v4()}', '${post_name}', '${post_content}', '${req.user.payload}')`).then(()=>{
     res.status(301).redirect('../user/user-page')
   })
 }
