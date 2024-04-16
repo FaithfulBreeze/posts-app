@@ -13,7 +13,7 @@ router.get('/userData/',jwtVerify, userController.getUserData) //sends user info
 router.get('/userData/:id',jwtVerify, userController.getUserData) //sends user info for populating user page
 router.get('/userPosts/', jwtVerify, postController.getUserPosts) //sends user posts for populating user page
 router.get('/userPosts/:id', jwtVerify, postController.getUserPosts) //sends user posts for populating user page
-router.get('/getFeedPosts', postController.getFeedPosts) //populates feed page
+router.get('/feedPosts', postController.getFeedPosts) //populates feed page
 router.put('/logout', jwtVerify, authController.logoutUser) //handling logout
 router.delete('/deletePost/:id', jwtVerify, postController.deletePost) //handle post deletion
 router.delete('/deleteUser', jwtVerify, userController.deleteUser) //deletes current user

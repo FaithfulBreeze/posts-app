@@ -43,7 +43,7 @@
     .then((userData)=>{
       localStorage.setItem('userData', JSON.stringify(userData))
       document.querySelector('#username_field').innerText = `Logged as: ${userData.username}`
-      return fetch('../api/getFeedPosts')
+      return fetch('../api/feedPosts')
     })
     .then((content)=>{
       return content.json()
