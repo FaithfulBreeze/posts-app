@@ -1,5 +1,5 @@
 # Posts App
-## What was used for building this project?
+## What was used to building this project?
 - Express
 - Postgresql
 - JWT
