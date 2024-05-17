@@ -1,0 +1,6 @@
+services:
+  posts-app-api:
+    build: ./
+    container_name: papp-api
+    ports:
+      - 4040:4040

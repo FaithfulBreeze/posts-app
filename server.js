@@ -10,7 +10,7 @@ app.use(logEvents.logRequest) //Logging requests on logs folder
 database.connect() //Conecting to the database
 .then(()=>{ //On success...
     logEvents.databaseConnect() //Log the database status
-    app.listen(process.env.PORT || 3030, logEvents.serverStatus) //Start the server and log server status
+    app.listen(process.env.PORT || 4040, "0.0.0.0", logEvents.serverStatus) //Start the server and log server status
 })
 .catch((err)=>{ //On fail
     logEvents.databaseConnect(err) //Log database status
