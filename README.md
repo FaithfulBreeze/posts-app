@@ -5,14 +5,22 @@
 - JWT
 - MVC Design
 - Javascript
+- Typescript
+- Prisma
 ## What was the main porpouse of this project?
-Learning about authorization process, acessing an real database, using table relations and understanding why an ORM such as prisma and Typescript would help the development
+Learning about authorization process, acessing an real database, using table relations and understanding why an ORM such as prisma and Typescript would help the development.
 ## But why did i use PG?
 PG uses pure sql queries and i see this as an important step to use the relational database with mastery (uderstanding the sql cmds), even if its weak on sqli
+
+(Refactor update) - Prisma is being used to manage the database
 ## Why not Typescript yet?
 When i started the project i decided not to use Typescript, the reason is i wanted to understand why Typescript would make the development faster, decided to face pure Javacript
+
+(Refactor update) - Typescript!
 ## Why CSS was not used?
 I actually understand a bit of frontend but my ability with frontend is not deep enough yet, at some point i want to dive in frontend to become a fullstack developer, but even when i get a good understanding i will not update older projects, because i want to show the progress on learning each technology
+
+(Refactor update) - CSS was added to the project!
 ## What i am going to learn now?
 - Docker
 - Mongo

@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+  font-family: "Roboto", sans-serif;
+}
+body{
+    font-size: 1.3em;
+    height: 100vh;
+    display: grid;
+    place-content: center;
+    background-color: #444;
+}
+main{
+    border-radius: 10px;
+    padding: 50px;
+    text-align: center;
+    background-image: linear-gradient(to bottom, rgb(255, 255, 255), rgb(224, 224, 224));
+}
+form{
+    font-size: 1.3em;
+    display: flex;
+    flex-direction: column;
+}
+form div{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 100%;
+}
+form div input{
+    text-indent: 15px;
+}
+form div input, form button, form textarea{
+    display: block;
+    font: inherit;
+    border-radius: 8px;
+}
+form textarea{
+    font-size: 0.8em;
+    height: 220px;
+}
+form button{
+    margin-top: 30px;
+    background-color: white;
+    font-weight: bold;
+    transition-duration: 200ms;
+    cursor: pointer;
+}
+form button:hover{
+    background-color: #DDD;
+}
+a{
+    text-decoration: none;
+    margin: auto;
+    width: 100%;
+}
+a button{
+    width: 100%;
+}
+
+@media screen and (max-width: 720px) {
+    body{
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    body{
+        font-size: 5.5vw;
+    }
+    main{
+        padding: 25px 10px;
+    }
+}

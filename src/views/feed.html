@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts app!</title>
+    <link rel="stylesheet" href="css/post-list.css">
+</head>
+<body>
+  <header>
+    <div id="first-container">
+      <h1>Feed</h1>
+    </div>
+    <div id="second-container">
+      <a href="../create-post"><button>Create new post</button></a>
+      <a href="../user/user-page"><button>User Page</button></a>
+      <button onclick="logoutUser()">Logout</button>
+    </div>
+    <button id="open-menu-button" onclick="setMenu()">Open Menu</button>
+    <div id="mobile-menu">
+      <nav>
+        <ul>
+          <li><button onclick="setMenu()">Close Menu</button></li>
+          <li><a href="../create-post"><button>Create new post</button></a></li>
+          <li><a href="../user/user-page"><button>User Page</button></a></li>
+          <li><button onclick="logoutUser()">Logout</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <hr>
+  <main>
+    <ul id="posts_list">
+
+    </ul>
+  </main>
+  <script src="js/feed-page.js"></script>
+</body>
+</html>

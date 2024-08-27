@@ -1,6 +1,28 @@
 services:
   posts-app-api:
-    build: ./
+    build: ./src/
     container_name: papp-api
     ports:
       - 4040:4040
+    volumes:
+      - ./src/:/app
+    networks:
+      - papp-network
+    
+  posts-app-db:
+    image: postgres
+    container_name: papp-db
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=papp-password
+      - POSTGRES_USER=papp-user
+      - POSTGRES_DB=papp-database
+    ports: 
+      - 5432:5432
+    networks:
+     - papp-network
+
+networks:
+  papp-network:
+    driver: bridge

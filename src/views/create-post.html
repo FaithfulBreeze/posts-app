@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts app!</title>
+    <link rel="stylesheet" href="css/create-post.css">
+</head>
+<body>
+    <main>
+        <header><h1>Create post</h1></header>
+        <form action="api/createPost" method="post">
+            <div>
+                <label for="post_name">Title: </label>
+                <input type="text" name="post_name" id="post_name" required>
+            </div>
+            <div>
+                <label for="post_content">Content: </label>
+                <textarea name="post_content" id="post_content" required"></textarea>
+            </div>
+            <button type="submit">Create</button>
+            <a href="../../feed"><button type="button">Cancel</button></a>
+        </form>
+    </main>
+</body>
+</html>
