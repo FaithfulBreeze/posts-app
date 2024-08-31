@@ -4,7 +4,7 @@
   "description": "My first REST api using express",
   "main": "server.ts",
   "scripts": {
-    "start": "npx prisma generate && npx prisma migrate dev --name database_set && npx ts-node server.ts"
+    "start": "npx prisma generate && npx prisma migrate dev --name database_set && node server.js"
   },
   "author": "Luis Victor Silva Santos",
   "license": "ISC",
