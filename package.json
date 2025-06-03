@@ -4,10 +4,13 @@
   "description": "My first REST api using express",
   "main": "server.ts",
   "scripts": {
-    "start": "npx prisma generate && npx prisma migrate dev --name database_set && npx ts-node server.ts"
+    "start": "docker compose up -d && npx prisma generate && npx prisma migrate dev --name database_set && npx ts-node src/server.ts"
   },
   "author": "Luis Victor Silva Santos",
   "license": "ISC",
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "dependencies": {
     "@prisma/client": "^5.18.0",
     "@types/bcrypt": "^5.0.2",
